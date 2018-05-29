@@ -59,6 +59,17 @@ func handleSlackMessage(event *slack.MessageEvent) {
         return
     }
 
+    // Handle the 'ping' command.
+
+    command = regexp.
+            MustCompile("<[^>]+> +ping").
+            FindStringSubmatch(text)
+
+    if len(command) > 0 {
+        doPing()
+        return
+    }
+
     // Handle the 'promote' command.
 
     command = regexp.

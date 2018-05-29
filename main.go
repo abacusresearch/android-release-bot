@@ -157,6 +157,10 @@ func doHelp() {
     postSlackMessage("Sorry, I don't understand.")
 }
 
+func doPing() {
+    postSlackMessage("Pong.")
+}
+
 func doPromote(appId string, appVersionCode int64, storeTrack string) {
     postSlackMessage("Ok, promoting *%v* with version code *%v* to track *%v* ...", appId, appVersionCode, storeTrack)
 
