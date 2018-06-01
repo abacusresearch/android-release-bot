@@ -1,15 +1,12 @@
 package main
 
-import (
-    "log"
-    "os"
-)
+import "os"
 
 func getConfig(name string) string {
     result := os.Getenv(name)
 
     if len(result) == 0 {
-        log.Fatalf("Sorry, I cannot get the environment variable: %v", name)
+        panic(name)
     }
 
     return result
