@@ -175,10 +175,11 @@ func handleSlackMessages() {
 }
 
 func postSlackMessage(message string, arguments ...interface{}) {
+    messageText := fmt.Sprintf(message, arguments...)
+
     _, _, err := rtm.PostMessage(
             getConfig("SLACK_BOT_CHANNEL_ID"),
-            fmt.Sprintf(message, arguments...),
-            slack.NewPostMessageParameters())
+            slack.MsgOptionText(messageText, false))
 
     if err != nil {
         panic(err)
