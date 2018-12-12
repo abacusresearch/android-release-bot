@@ -127,6 +127,24 @@ func handleSlackMessage(event *slack.MessageEvent) {
         return
     }
 
+    // Handle the 'show release notes' command.
+
+    command = regexp.
+            MustCompile("<[^>]+> +show +release +notes +for +([^ ]+) +(.+)").
+            FindStringSubmatch(text)
+
+    if len(command) > 0 {
+        appVersionCode, err := strconv.ParseInt(command[2], 10, 64)
+
+        if err != nil {
+            postSlackMessage("Sorry, I don't understand that version code.")
+            return
+        }
+
+        doShowReleaseNotes(command[1], appVersionCode)
+        return
+    }
+
     // Handle the 'show tracks' command.
 
     command = regexp.

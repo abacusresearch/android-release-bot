@@ -3,9 +3,11 @@ package main
 import (
     "fmt"
     "golang.org/x/oauth2"
-    "google.golang.org/api/androidpublisher/v2"
     "google.golang.org/api/googleapi"
     "os"
+
+    androidpublisher2 "google.golang.org/api/androidpublisher/v2"
+    androidpublisher3 "google.golang.org/api/androidpublisher/v3"
 )
 
 func doDeploy(artifactId string, version string) {
@@ -28,7 +30,7 @@ func doDeploy(artifactId string, version string) {
 
     client := credentials.Client(oauth2.NoContext)
 
-    publisher, err := androidpublisher.New(client)
+    publisher, err := androidpublisher2.New(client)
 
     if err != nil {
         postSlackMessage("Sorry, I cannot create the publisher: %v", err)
@@ -65,7 +67,7 @@ func doDeploy(artifactId string, version string) {
         return
     }
 
-    track := &androidpublisher.Track {Track: "internal"}
+    track := &androidpublisher2.Track {Track: "internal"}
 
     for _, candidate := range tracks.Tracks {
         if (candidate.Track == "internal") {
@@ -108,7 +110,7 @@ func doHalt(appId string, appVersionCode int64) {
 
     client := credentials.Client(oauth2.NoContext)
 
-    publisher, err := androidpublisher.New(client)
+    publisher, err := androidpublisher2.New(client)
 
     if err != nil {
         postSlackMessage("Sorry, I cannot create the publisher: %v", err)
@@ -172,7 +174,7 @@ func doPromote(appId string, appVersionCode int64, storeTrack string) {
 
     client := credentials.Client(oauth2.NoContext)
 
-    publisher, err := androidpublisher.New(client)
+    publisher, err := androidpublisher2.New(client)
 
     if err != nil {
         postSlackMessage("Sorry, I cannot create the publisher: %v", err)
@@ -199,7 +201,7 @@ func doPromote(appId string, appVersionCode int64, storeTrack string) {
         return
     }
 
-    track := &androidpublisher.Track {Track: storeTrack}
+    track := &androidpublisher2.Track {Track: storeTrack}
 
     for _, candidate := range tracks.Tracks {
         if (candidate.Track == storeTrack) {
@@ -253,7 +255,7 @@ func doRollout(appId string, appVersionCode int64, userPercentage int) {
 
     client := credentials.Client(oauth2.NoContext)
 
-    publisher, err := androidpublisher.New(client)
+    publisher, err := androidpublisher2.New(client)
 
     if err != nil {
         postSlackMessage("Sorry, I cannot create the publisher: %v", err)
@@ -280,7 +282,7 @@ func doRollout(appId string, appVersionCode int64, userPercentage int) {
         return
     }
 
-    track := &androidpublisher.Track {Track: "rollout"}
+    track := &androidpublisher2.Track {Track: "rollout"}
 
     for _, candidate := range tracks.Tracks {
         if (candidate.Track == "rollout") {
@@ -336,6 +338,69 @@ func doRollout(appId string, appVersionCode int64, userPercentage int) {
     postSlackMessage("Done.")
 }
 
+func doShowReleaseNotes(appId string, appVersionCode int64) {
+    postSlackMessage("Ok, showing release notes for *%v* with version code *%v* ...", appId, appVersionCode)
+
+    credentials := loadStoreCredentials()
+
+    if credentials == nil {
+        return
+    }
+
+    client := credentials.Client(oauth2.NoContext)
+
+    publisher, err := androidpublisher3.New(client)
+
+    if err != nil {
+        postSlackMessage("Sorry, I cannot create the publisher: %v", err)
+        return
+    }
+
+    appId = fmt.Sprintf("%v.%v", getConfig("ANDROID_APP_ID_PREFIX"), appId)
+
+    edit, err := publisher.Edits.
+            Insert(appId, nil).
+            Do()
+
+    if err != nil {
+        postSlackMessage("Sorry, I cannot insert the edit: %v", err)
+        return
+    }
+
+    tracks, err := publisher.Edits.Tracks.
+            List(appId, edit.Id).
+            Do()
+
+    if err != nil {
+        postSlackMessage("Sorry, I cannot list the tracks: %v", err)
+        return
+    }
+
+    exists := false
+
+    for _, track := range tracks.Tracks {
+        for _, release := range track.Releases {
+            for _, candidate := range release.VersionCodes {
+                if candidate != appVersionCode {
+                    continue
+                }
+
+                exists = true
+
+                for _, releaseNotes := range release.ReleaseNotes {
+                    postSlackMessage("*%v*: %v.", releaseNotes.Language, releaseNotes.Text)
+                }
+            }
+        }
+    }
+
+    if exists {
+        postSlackMessage("Done.")
+    } else {
+        postSlackMessage("Sorry, I can't find that version code.")
+    }
+}
+
 func doShowTracks(appId string) {
     postSlackMessage("Ok, showing tracks for *%v* ...", appId)
 
@@ -347,7 +412,7 @@ func doShowTracks(appId string) {
 
     client := credentials.Client(oauth2.NoContext)
 
-    publisher, err := androidpublisher.New(client)
+    publisher, err := androidpublisher2.New(client)
 
     if err != nil {
         postSlackMessage("Sorry, I cannot create the publisher: %v", err)
