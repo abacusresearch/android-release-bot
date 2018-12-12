@@ -15,7 +15,7 @@ func downloadMavenArtifact(url string) *os.File {
     request, err := http.NewRequest("GET", url, nil)
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot create the HTTP request: %v", err)
+        postSlackMessage("Sorry, I can't create the HTTP request: %v", err)
         return nil
     }
 
@@ -24,7 +24,7 @@ func downloadMavenArtifact(url string) *os.File {
     response, err := client.Do(request)
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot execute the HTTP request: %v", err)
+        postSlackMessage("Sorry, I can't execute the HTTP request: %v", err)
         return nil
     }
 
@@ -38,21 +38,21 @@ func downloadMavenArtifact(url string) *os.File {
     result, err := ioutil.TempFile("", "")
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot create the temporary file: %v", err)
+        postSlackMessage("Sorry, I can't create the temporary file: %v", err)
         return nil
     }
 
     _, err = io.Copy(result, response.Body)
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot write the temporary file: %v", err)
+        postSlackMessage("Sorry, I can't write the temporary file: %v", err)
         return nil
     }
 
     _, err = result.Seek(0, 0)
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot seek in the temporary file: %v", err)
+        postSlackMessage("Sorry, I can't seek in the temporary file: %v", err)
         return nil
     }
 

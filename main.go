@@ -33,7 +33,7 @@ func doDeploy(artifactId string, version string) {
     publisher, err := androidpublisher2.New(client)
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot create the publisher: %v", err)
+        postSlackMessage("Sorry, I can't create the publisher: %v", err)
         return
     }
 
@@ -44,7 +44,7 @@ func doDeploy(artifactId string, version string) {
             Do()
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot insert the edit: %v", err)
+        postSlackMessage("Sorry, I can't insert the edit: %v", err)
         return
     }
 
@@ -54,7 +54,7 @@ func doDeploy(artifactId string, version string) {
             Do()
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot upload the APK: %v", err)
+        postSlackMessage("Sorry, I can't upload the APK: %v", err)
         return
     }
 
@@ -63,7 +63,7 @@ func doDeploy(artifactId string, version string) {
             Do()
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot list the tracks: %v", err)
+        postSlackMessage("Sorry, I can't list the tracks: %v", err)
         return
     }
 
@@ -92,7 +92,7 @@ func doDeploy(artifactId string, version string) {
             Do()
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot commit the edit: %v", err)
+        postSlackMessage("Sorry, I can't commit the edit: %v", err)
         return
     }
 
@@ -113,7 +113,7 @@ func doHalt(appId string, appVersionCode int64) {
     publisher, err := androidpublisher2.New(client)
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot create the publisher: %v", err)
+        postSlackMessage("Sorry, I can't create the publisher: %v", err)
         return
     }
 
@@ -124,7 +124,7 @@ func doHalt(appId string, appVersionCode int64) {
             Do()
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot insert the edit: %v", err)
+        postSlackMessage("Sorry, I can't insert the edit: %v", err)
         return
     }
 
@@ -133,7 +133,7 @@ func doHalt(appId string, appVersionCode int64) {
             Do()
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot list the tracks: %v", err)
+        postSlackMessage("Sorry, I can't list the tracks: %v", err)
         return
     }
 
@@ -148,7 +148,7 @@ func doHalt(appId string, appVersionCode int64) {
             Do()
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot commit the edit: %v", err)
+        postSlackMessage("Sorry, I can't commit the edit: %v", err)
         return
     }
 
@@ -177,7 +177,7 @@ func doPromote(appId string, appVersionCode int64, storeTrack string) {
     publisher, err := androidpublisher2.New(client)
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot create the publisher: %v", err)
+        postSlackMessage("Sorry, I can't create the publisher: %v", err)
         return
     }
 
@@ -188,7 +188,7 @@ func doPromote(appId string, appVersionCode int64, storeTrack string) {
             Do()
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot insert the edit: %v", err)
+        postSlackMessage("Sorry, I can't insert the edit: %v", err)
         return
     }
 
@@ -197,7 +197,7 @@ func doPromote(appId string, appVersionCode int64, storeTrack string) {
             Do()
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot list the tracks: %v", err)
+        postSlackMessage("Sorry, I can't list the tracks: %v", err)
         return
     }
 
@@ -237,7 +237,7 @@ func doPromote(appId string, appVersionCode int64, storeTrack string) {
             Do()
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot commit the edit: %v", err)
+        postSlackMessage("Sorry, I can't commit the edit: %v", err)
         return
     }
 
@@ -258,7 +258,7 @@ func doRollout(appId string, appVersionCode int64, userPercentage int) {
     publisher, err := androidpublisher2.New(client)
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot create the publisher: %v", err)
+        postSlackMessage("Sorry, I can't create the publisher: %v", err)
         return
     }
 
@@ -269,7 +269,7 @@ func doRollout(appId string, appVersionCode int64, userPercentage int) {
             Do()
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot insert the edit: %v", err)
+        postSlackMessage("Sorry, I can't insert the edit: %v", err)
         return
     }
 
@@ -278,7 +278,7 @@ func doRollout(appId string, appVersionCode int64, userPercentage int) {
             Do()
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot list the tracks: %v", err)
+        postSlackMessage("Sorry, I can't list the tracks: %v", err)
         return
     }
 
@@ -331,7 +331,7 @@ func doRollout(appId string, appVersionCode int64, userPercentage int) {
             Do()
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot commit the edit: %v", err)
+        postSlackMessage("Sorry, I can't commit the edit: %v", err)
         return
     }
 
@@ -352,7 +352,7 @@ func doShowReleaseNotes(appId string, appVersionCode int64) {
     publisher, err := androidpublisher3.New(client)
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot create the publisher: %v", err)
+        postSlackMessage("Sorry, I can't create the publisher: %v", err)
         return
     }
 
@@ -363,7 +363,7 @@ func doShowReleaseNotes(appId string, appVersionCode int64) {
             Do()
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot insert the edit: %v", err)
+        postSlackMessage("Sorry, I can't insert the edit: %v", err)
         return
     }
 
@@ -372,7 +372,7 @@ func doShowReleaseNotes(appId string, appVersionCode int64) {
             Do()
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot list the tracks: %v", err)
+        postSlackMessage("Sorry, I can't list the tracks: %v", err)
         return
     }
 
@@ -415,7 +415,7 @@ func doShowTracks(appId string) {
     publisher, err := androidpublisher2.New(client)
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot create the publisher: %v", err)
+        postSlackMessage("Sorry, I can't create the publisher: %v", err)
         return
     }
 
@@ -426,7 +426,7 @@ func doShowTracks(appId string) {
             Do()
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot insert the edit: %v", err)
+        postSlackMessage("Sorry, I can't insert the edit: %v", err)
         return
     }
 
@@ -435,7 +435,7 @@ func doShowTracks(appId string) {
             Do()
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot list the tracks: %v", err)
+        postSlackMessage("Sorry, I can't list the tracks: %v", err)
         return
     }
 

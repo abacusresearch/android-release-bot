@@ -24,7 +24,7 @@ func addVersionCodeToStoreTrack(
             Do()
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot update the track: %v", err)
+        postSlackMessage("Sorry, I can't update the track: %v", err)
         return false
     }
 
@@ -46,7 +46,7 @@ func changeUserFraction(
             Do()
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot update the track: %v", err)
+        postSlackMessage("Sorry, I can't update the track: %v", err)
         return false
     }
 
@@ -57,7 +57,7 @@ func loadStoreCredentials() *jwt.Config {
     data, err := base64.StdEncoding.DecodeString(getConfig("ANDROID_PUBLISHER_CREDENTIALS"))
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot decode the credentials: %v", err)
+        postSlackMessage("Sorry, I can't decode the credentials: %v", err)
         return nil
     }
 
@@ -66,7 +66,7 @@ func loadStoreCredentials() *jwt.Config {
             "https://www.googleapis.com/auth/androidpublisher")
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot parse the credentials: %v", err)
+        postSlackMessage("Sorry, I can't parse the credentials: %v", err)
         return nil
     }
 
@@ -89,7 +89,7 @@ func removeAllVersionCodesFromStoreTrack(
             Do()
 
     if err != nil {
-        postSlackMessage("Sorry, I cannot update the track: %v", err)
+        postSlackMessage("Sorry, I can't update the track: %v", err)
         return false
     }
 
@@ -120,7 +120,7 @@ func removeVersionCodeFromStoreTracks(
                 Do()
 
         if err != nil {
-            postSlackMessage("Sorry, I cannot update the track: %v", err)
+            postSlackMessage("Sorry, I can't update the track: %v", err)
             return false
         }
     }
