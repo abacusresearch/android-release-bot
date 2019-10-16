@@ -87,8 +87,8 @@ func handleSlackMessage(event *slack.MessageEvent) {
         storeTrack := command[3]
 
         if storeTrack != "alpha" && storeTrack != "beta" && storeTrack != "internal" {
-            if event.User != getConfig("SLACK_GOD_USER_ID") {
-                postSlackMessage("Sorry, only god can do that.")
+            if !getConfigExpression("SLACK_GOD_USER_ID").MatchString(event.User) {
+                postSlackMessage("Sorry, only gods can do that.")
                 return
             }
         }
@@ -118,8 +118,8 @@ func handleSlackMessage(event *slack.MessageEvent) {
             return
         }
 
-        if event.User != getConfig("SLACK_GOD_USER_ID") {
-            postSlackMessage("Sorry, only god can do that.")
+        if !getConfigExpression("SLACK_GOD_USER_ID").MatchString(event.User) {
+            postSlackMessage("Sorry, only gods can do that.")
             return
         }
 
