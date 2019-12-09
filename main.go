@@ -4,6 +4,7 @@ import (
     "fmt"
     "golang.org/x/oauth2"
     "google.golang.org/api/googleapi"
+    "log"
     "os"
 
     androidpublisher2 "google.golang.org/api/androidpublisher/v2"
@@ -451,5 +452,9 @@ func doShowTracks(appId string) {
 }
 
 func main() {
+    log.Print("Starting up ...")
+
     handleSlackMessages()
+
+    log.Print("Shutting down ...")
 }
